@@ -10,10 +10,6 @@ import { catchError } from 'rxjs/operators';
 
 import { IError } from './interface/common-interceptors.interface';
 
-export const MESSAGES = {
-  invalidId: 'id is an invalid MongoDB ObjectId.',
-};
-
 @Injectable()
 export class InvalidIdInterceptor implements NestInterceptor {
   private isInvalidId(error: IError): boolean {
@@ -22,7 +18,7 @@ export class InvalidIdInterceptor implements NestInterceptor {
 
   private errorResponse(error: IError): Observable<void> {
     return this.isInvalidId(error)
-      ? throwError(() => new BadRequestException(MESSAGES.invalidId))
+      ? throwError(() => new BadRequestException('id is an invalid MongoDB ObjectId.'))
       : throwError(() => error);
   }
 
